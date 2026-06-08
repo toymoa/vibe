@@ -73,7 +73,7 @@ body {
 
 .controls button:hover {
   background: var(--surface-hover);
-  border-color: var(--accent);
+  border-color: #1f6feb;
 }
 
 main {
@@ -108,7 +108,7 @@ main {
 }
 
 .repo-card:hover {
-  border-color: var(--accent);
+  border-color: #1f6feb;
 }
 
 .repo-card .rank {
