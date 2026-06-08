@@ -80,6 +80,9 @@ main {
   max-width: 880px;
   margin: 0 auto;
   padding: 0 1rem 2rem;
+  /* 데이터 재로딩 시 리스트가 비워져도 높이가 무너지지 않도록 고정해
+     스크롤이 위로 튀는 현상을 막는다. */
+  min-height: 100vh;
 }
 
 .status {

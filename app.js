@@ -64,7 +64,8 @@ function escapeHtml(str) {
 }
 
 async function load() {
-  listEl.innerHTML = "";
+  // 기존 목록은 그대로 두고, 새 데이터가 준비되면 한 번에 교체한다.
+  // (즉시 비우면 높이가 줄며 스크롤이 튀고 깜빡인다.)
   statusEl.textContent = "불러오는 중…";
   statusEl.classList.remove("error");
   refreshBtn.disabled = true;
@@ -91,12 +92,15 @@ async function load() {
     const repos = data.items || [];
 
     if (repos.length === 0) {
+      listEl.innerHTML = "";
       statusEl.textContent = "조건에 맞는 레포가 없습니다.";
       return;
     }
 
+    const fragment = document.createDocumentFragment();
+    repos.forEach((repo, i) => fragment.appendChild(repoCard(repo, i + 1)));
+    listEl.replaceChildren(fragment);
     statusEl.textContent = `총 ${numberFmt.format(data.total_count)}개 중 상위 ${repos.length}개`;
-    repos.forEach((repo, i) => listEl.appendChild(repoCard(repo, i + 1)));
     updatedEl.textContent = new Date().toLocaleString("ko-KR");
   } catch (err) {
     statusEl.textContent = err.message;
